@@ -43,6 +43,8 @@ class FirebaseService {
 
   getUser = email => this.getUsers().doc(email);
 
+  getProducts = () => this.db.collection('products');
+
   doSignOut = () => this.auth.signOut();
 
   onAuthUserListener = onAuthChange =>

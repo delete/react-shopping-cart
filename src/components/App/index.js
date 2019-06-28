@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import Shelf from '../Shelf';
-import Filter from '../Shelf/Filter';
-import GithubCorner from '../github/Corner';
 import FloatCart from '../FloatCart';
 import { Header } from '../Header';
 
@@ -39,10 +37,10 @@ class App extends Component {
 
     return (
       <SessionProvider value={{ user, initializing }}> 
-        <GithubCorner />
-        <Header style={{ margin: '0 80px'}}/>
+        {/* <GithubCorner /> */}
+        <Header/>
         <main>
-          <Filter />
+          {/* <Filter /> */}
           <Shelf />
         </main>
         <FloatCart />

@@ -149,10 +149,7 @@ class FloatCart extends Component {
             <div className="sub">SUBTOTAL</div>
             <div className="sub-price">
               <p className="sub-price__val">
-                {`${cartTotal.currencyFormat} ${formatPrice(
-                  cartTotal.totalPrice,
-                  cartTotal.currencyId
-                )}`}
+                {`${cartTotal.totalPrice} pontos`}
               </p>
               <small className="sub-price__installment">
                 {!!cartTotal.installments && (
