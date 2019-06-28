@@ -1,0 +1,31 @@
+
+.user-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    &__email {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    &__points {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+
+        & > strong {
+            color: #eabf00;
+            font-size: 12px;
+            margin: 0 4px;
+        }
+    }
+}
+
+.avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
