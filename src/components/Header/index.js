@@ -10,8 +10,8 @@ export const Header = (props) => {
     const { user } = useSession();
     return (
                     
-        <header className='header' {...props}>
-            {user && <UserInfo {...user}/>}
+        <header className='header'>
+            {user && <UserInfo photo={user.photo} title={user.username} points={user.points}/>}
             {
                !user ? <LoginButton/> : <LogoutButton />
             }
