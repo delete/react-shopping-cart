@@ -23,7 +23,7 @@ class App extends Component {
       if(authUser) {
         const userRef = await firebase.getUser(authUser.email);
         userRef.onSnapshot((snapshot) => {
-          const user = snapshot.data();
+          const user = {...snapshot.data(), docRef: snapshot.ref};
           this.setState({ user, initializing: false })
         })
       } else {
