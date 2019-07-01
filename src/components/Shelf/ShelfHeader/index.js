@@ -7,7 +7,7 @@ const ShelfHeader = props => {
   return (
     <div className="shelf-container-header">
       <small className="products-found">
-        <span>{props.productsLength} Product(s) found.</span>
+        <span>{props.productsLength} Produto(s) encontrado(s).</span>
       </small>
       {/* <Sort /> */}
     </div>
