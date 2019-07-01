@@ -65,7 +65,7 @@ class Shelf extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.shelf.products,
+  products: state.shelf.products.filter(product => product.stock > 0),
   filters: state.filters.items,
   sort: state.sort.type
 });
