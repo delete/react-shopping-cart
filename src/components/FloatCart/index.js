@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { loadCart, removeProduct, checkoutCart } from '../../services/cart/actions';
+import {
+  loadCart,
+  removeProduct,
+  checkoutCart
+} from '../../services/cart/actions';
 import { updateCart } from '../../services/total/actions';
 import CartProduct from './CartProduct';
 
@@ -10,6 +14,7 @@ import './style.scss';
 import Spinner from '../Spinner';
 import { SessionContext } from '../SessionProvider';
 import { toast } from 'react-toastify';
+import { Drawer } from '../Drawer';
 
 class FloatCart extends Component {
   static propTypes = {
@@ -26,7 +31,7 @@ class FloatCart extends Component {
 
     this.state = {
       isOpen: false,
-      isLoading: false,
+      isLoading: false
     };
   }
 
@@ -77,11 +82,8 @@ class FloatCart extends Component {
     }
   };
 
-  proceedToCheckout = (user) => {
-    const {
-      totalPrice,
-      productQuantity,
-    } = this.props.cartTotal;
+  proceedToCheckout = user => {
+    const { totalPrice, productQuantity } = this.props.cartTotal;
 
     const { cartProducts } = this.props;
 
@@ -90,12 +92,9 @@ class FloatCart extends Component {
     } else if (user.points < totalPrice) {
       toast.warn('Você não possui pontos o suficiente. :(');
     } else {
-      this.setState({ isLoading: true })
-      this.props.checkoutCart(
-        cartProducts,
-        user,
-        totalPrice,
-        () => this.setState({ isLoading: false })
+      this.setState({ isLoading: true });
+      this.props.checkoutCart(cartProducts, user, totalPrice, () =>
+        this.setState({ isLoading: false })
       );
     }
   };
@@ -110,71 +109,61 @@ class FloatCart extends Component {
       );
     });
 
-    let classes = ['float-cart'];
-
-    if (!!this.state.isOpen) {
-      classes.push('float-cart--open');
-    }
-
     return (
       <SessionContext.Consumer>
-        {
-          ({user}) => {
-            return ( <div className={classes.join(' ')}>
-            {/* If cart open, show close (x) button */}
-            {this.state.isOpen && (
-              <div
-                onClick={() => this.closeFloatCart()}
-                className="float-cart__close-btn"
-              >
-                X
-              </div>
-            )}
-    
-            {/* If cart is closed, show bag with quantity of product and open cart action */}
-            {!this.state.isOpen && (
-              <span
-                onClick={() => this.openFloatCart()}
-                className="bag bag--float-cart-closed"
-              >
-                <span className="bag__quantity">{cartTotal.productQuantity}</span>
-              </span>
-            )}
-    
-            <div className="float-cart__content">
-              <div className="float-cart__header">
-                <span className="bag">
-                  <span className="bag__quantity">{cartTotal.productQuantity}</span>
-                </span>
-                <span className="header-title">Cart</span>
-              </div>
-    
-              <div className="float-cart__shelf-container">
-                {products}
-                {!products.length && (
-                  <p className="shelf-empty">
-                    Add some products in the cart <br />
-                    :)
-                  </p>
-                )}
-              </div>
-    
-              <div className="float-cart__footer">
-                <div className="sub">SUBTOTAL</div>
-                <div className="sub-price">
-                  <p className="sub-price__val">
-                    {`${cartTotal.totalPrice} pontos`}
-                  </p>
+        {({ user }) => {
+          return (
+              <Drawer isOpen={this.state.isOpen} onClose={this.closeFloatCart}>
+                <div className='float-cart'>
+                  {!this.state.isOpen && (
+                    <span
+                      onClick={() => this.openFloatCart()}
+                      className="bag bag--float-cart-closed"
+                    >
+                      <span className="bag__quantity">
+                        {cartTotal.productQuantity}
+                      </span>
+                    </span>
+                  )}
+
+                  <div className="float-cart__header">
+                    <span className="bag">
+                      <span className="bag__quantity">
+                        {cartTotal.productQuantity}
+                      </span>
+                    </span>
+                    <span className="header-title">Cart</span>
+                  </div>
+
+                  <div className="float-cart__shelf-container">
+                    {products}
+                    {!products.length && (
+                      <p className="shelf-empty">
+                        Add some products in the cart <br />
+                        :)
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="float-cart__footer">
+                    <div className="sub">SUBTOTAL</div>
+                    <div className="sub-price">
+                      <p className="sub-price__val">
+                        {`${cartTotal.totalPrice} pontos`}
+                      </p>
+                    </div>
+                    <div
+                      onClick={() => this.proceedToCheckout(user)}
+                      className="buy-btn"
+                    >
+                      {isLoading ? 'Finalizando...' : 'Checkout'}
+                    </div>
+                    {isLoading && <Spinner />}
+                  </div>
                 </div>
-                <div onClick={() => this.proceedToCheckout(user)} className="buy-btn">
-                  {isLoading ? 'Finalizando...' : 'Checkout'}
-                </div>
-                {isLoading && <Spinner />}
-              </div>
-            </div>
-          </div>)
-          }
-        }
+              </Drawer>
+          );
+        }}
       </SessionContext.Consumer>
     );
   }
