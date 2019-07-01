@@ -1,4 +1,5 @@
 import { UPDATE_CART } from './actionTypes';
+import { CLEAN_CART } from '../cart/actionTypes';
 
 export const updateCart = cartProducts => dispatch => {
   let productQuantity = cartProducts.reduce((sum, p) => {
@@ -29,3 +30,8 @@ export const updateCart = cartProducts => dispatch => {
     payload: cartTotal
   });
 };
+
+
+export const cleanCart = () => ({
+  type: CLEAN_CART,
+});

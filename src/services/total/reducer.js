@@ -1,4 +1,4 @@
-import { UPDATE_CART } from './actionTypes';
+import { UPDATE_CART, CLEAN_CART } from './actionTypes';
 
 const initialState = {
   data: {
@@ -17,6 +17,13 @@ export default function(state = initialState, action) {
         ...state,
         data: action.payload
       };
+    
+    case CLEAN_CART: 
+      return {
+        ...state,
+        data: initialState.data
+      };
+
     default:
       return state;
   }
