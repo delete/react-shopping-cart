@@ -47,7 +47,7 @@ class CartProduct extends Component {
           <p className="title">{product.title}</p>
           <p className="desc">
             {product.description}
-            <p>Quantidade: {product.quantity}</p>
+            <span>Quantidade: {product.quantity}</span>
           </p>
         </div>
         <div className="shelf-item__price">
