@@ -44,6 +44,16 @@ class FirebaseService {
   getUser = email => this.getUsers().doc(email);
 
   getProducts = () => this.db.collection('products');
+  
+  getProduct = id => this.getProducts().doc(id);
+
+  getPayments = () => this.db.collection('payments');
+
+  createPayment = (payload) => this.getPayments().add(payload);
+
+  getTransations = () => this.db.collection('transactions');
+
+  createTransaction = (payload) => this.getTransations().add(payload);
 
   doSignOut = () => this.auth.signOut();
 

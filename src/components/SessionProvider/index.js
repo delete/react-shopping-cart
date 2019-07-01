@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from 'react';
 
-const SessionContext = createContext({
+export const SessionContext = createContext({
     user: null,
     initializing: true,
   });
