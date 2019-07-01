@@ -26,15 +26,19 @@ class FirebaseService {
 
     if (user) {
       const token = await user.getIdToken(true);
-      this.getUser(user.email).set({
-        username: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        roles: {},
-        token,
-        points: 50
-      });
-
+      const userRef = await this.getUser(user.email)
+      
+      const userDoc = await userRef.get();
+      if(!userDoc.exists) {
+        userRef.set({
+          username: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          roles: {},
+          token,
+          points: 0
+        });
+      }
       onLoggin && onLoggin(user);
     }
   };
@@ -46,6 +50,8 @@ class FirebaseService {
   getProducts = () => this.db.collection('products');
   
   getProduct = id => this.getProducts().doc(id);
+  
+  createProduct = (payload) => this.getProducts().add(payload);
 
   getPayments = () => this.db.collection('payments');
 

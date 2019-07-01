@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchProducts } from '../../services/shelf/actions';
+import { fetchProducts, createProduct } from '../../services/shelf/actions';
 
 import Spinner from '../Spinner';
 import ShelfHeader from './ShelfHeader';
 import ProductList from './ProductList';
+import { AddNewProduct } from './AddNewProduct';
 
 import './style.scss';
 
@@ -15,7 +16,8 @@ class Shelf extends Component {
     fetchProducts: PropTypes.func.isRequired,
     products: PropTypes.array.isRequired,
     filters: PropTypes.array,
-    sort: PropTypes.string
+    sort: PropTypes.string,
+    user: PropTypes.object,
   };
 
   state = {
@@ -49,7 +51,7 @@ class Shelf extends Component {
   };
 
   render() {
-    const { products } = this.props;
+    const { products, user } = this.props;
     const { isLoading } = this.state;
 
     return (
@@ -58,6 +60,7 @@ class Shelf extends Component {
         <div className="shelf-container">
           <ShelfHeader productsLength={products.length} />
           <ProductList products={products} />
+          {user && user.roles && user.roles.admin && <AddNewProduct onCreateProduct={createProduct}/>}
         </div>
       </React.Fragment>
     );
@@ -72,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchProducts }
+  { fetchProducts, createProduct }
 )(Shelf);

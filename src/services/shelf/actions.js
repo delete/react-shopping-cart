@@ -1,5 +1,6 @@
 import { FETCH_PRODUCTS } from './actionTypes';
 import firebase from '../../firebase.service';
+import { toast } from 'react-toastify';
 
 export const fetchProducts = (filters, sortBy, callback) => async (dispatch) => {
   const productsRef = await firebase.getProducts();
@@ -15,4 +16,15 @@ export const fetchProducts = (filters, sortBy, callback) => async (dispatch) => 
       payload: products
     });
   })
+};
+
+export const createProduct = (product, callback) => async (dispatch) => {
+
+  try {
+    await firebase.createProduct(product);
+    toast.success('Produto criado com sucesso!');
+  } catch (error) {
+    console.log(error);
+  }
+  callback && callback()
 };

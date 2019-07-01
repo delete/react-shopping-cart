@@ -11,10 +11,13 @@ export const Header = (props) => {
     return (
                     
         <header className='header'>
-            {user && <UserInfo photo={user.photo} title={user.username} points={user.points}/>}
-            {
-               !user ? <LoginButton/> : <LogoutButton />
-            }
+            <h1>Cirrus Store</h1>
+            <nav className='nav'>
+                {user && <UserInfo photo={user.photo} title={user.username} points={user.points}/>}
+                {
+                    !user ? <LoginButton/> : <LogoutButton />
+                }
+            </nav>
         </header>
                     
     )

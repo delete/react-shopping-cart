@@ -37,11 +37,9 @@ class App extends Component {
 
     return (
       <SessionProvider value={{ user, initializing }}> 
-        {/* <GithubCorner /> */}
         <Header/>
         <main>
-          {/* <Filter /> */}
-          <Shelf />
+          <Shelf user={user}/>
         </main>
         <FloatCart />
       </SessionProvider>

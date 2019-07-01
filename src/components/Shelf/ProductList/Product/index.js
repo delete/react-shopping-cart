@@ -25,7 +25,7 @@ const Product = ({ product, addProduct }) => {
           <small>pontos</small>
         </div>
       </div>
-      <div className="shelf-item__buy-btn">Add to cart</div>
+      <div className="shelf-item__buy-btn">Adicionar ao carrinho</div>
     </div>
   );
 };
